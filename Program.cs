@@ -30,6 +30,36 @@ namespace RandomBigInteger
 
             return new BigInteger(bs);
         }
+
+        // Generates BigInteger from [start] to [end]
+        public BigInteger NextBigInteger(BigInteger start, BigInteger end)
+        {
+            if (start == end) return start;
+
+            BigInteger res = end;
+
+            if (start > end)
+            {
+                end = start;
+                start = res;
+                res = end - start;
+            }
+            else
+                res -= start;
+
+            byte[] bs = res.ToByteArray();
+
+            int bits = 8;
+            byte mask = 0x7F;
+            while ((bs[bs.Length - 1] & mask) == bs[bs.Length - 1])
+            {
+                bits--;
+                mask >>= 1;
+            }
+            bits += 8 * bs.Length;
+
+            return ((NextBigInteger(bits + 1) * res) / BigInteger.Pow(2, bits + 1)) + start;
+        }
     }
 
     public class Program
