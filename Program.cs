@@ -66,7 +66,15 @@ namespace RandomBigInteger
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("There is no \"Hello, World!\"");
+            RandomBigInteger random = new RandomBigInteger();
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine(random.NextBigInteger(4));
+            }
+
+            Console.WriteLine();
+            BigInteger big = random.NextBigInteger(BigInteger.Parse("111111111111111"), BigInteger.Parse("999999999999999"));
+            Console.WriteLine(big);
 
             Console.ReadLine();
         }
